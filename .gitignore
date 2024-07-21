@@ -78,3 +78,6 @@ fabric.properties
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
+/.idea/
+/task-2-log-rejected-tasks/hw-1-task-3-log-rejected-tasks.iml
+/task-3-lucky-ticket/hw-1-task-7-lucky-ticket.iml

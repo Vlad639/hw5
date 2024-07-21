@@ -6,12 +6,12 @@
 
     <parent>
         <groupId>com.github.javarar</groupId>
-        <artifactId>hw-1-threads-and-executors</artifactId>
+        <artifactId>hw-5</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>hw-1-task-3-log-rejected-tasks</artifactId>
+    <artifactId>hw-5-task-2-log-rejected-tasks</artifactId>
 
     <name>Threads and Executors. Task 3</name>
     <description>Логирование не добавленных заданий в пул</description>

@@ -1,14 +1,21 @@
 package com.github.javarar.rejected.task;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import java.util.concurrent.*;
+import java.util.function.BiConsumer;
 
-import java.util.concurrent.Executor;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class CustomThreadExecutors {
+public final class CustomThreadExecutors extends ThreadPoolExecutor {
 
-    public static Executor logRejectedThreadPoolExecutor(/*можно передать такие аргументы, которые помогут вам сконструировать нужный пул*/) {
-        throw new UnsupportedOperationException("реализуй меня");
+    public CustomThreadExecutors(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue, BiConsumer<Runnable, Executor> rejectHandler) {
+        super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
+        setRejectedExecutionHandler(rejectHandler::accept);
+    }
+
+    public static Executor logRejectedThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue) {
+        return handleRejectedThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, (runnable, executor) -> System.out.printf("Task '%s' for executor '%s' was rejected %n", runnable, executor));
+    }
+
+    public static Executor handleRejectedThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue, BiConsumer<Runnable, Executor> rejectHandler) {
+        return new CustomThreadExecutors(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, rejectHandler);
     }
 }
